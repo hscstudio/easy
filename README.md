@@ -44,10 +44,41 @@ location / {
 }
 ```
 
+## directory structure
+
++ app
+  + controllers
+    - Site.php  -> site controller
+  + views
+    + default
+      - login.php -> default view login
+    + layout
+      - main.php  -> layout file
+    + site
+      - index.php -> view file
+  - config.php  -> configuration file
++ core
+  - Application.php -> class main application
+  - Controller.php  -> base controller
+  - Database.php  -> class database connection
+  - error.php -> error page
+  - Helper.php  -> helpers
+  - User.php  -> model user
++ public
+  + assets -> assets folder
+    + js
+    + css
+  - index.php -> mount point application
+
 ## another
 
 username : admin 
 password : 123456
+
+## screenshoot
+
+![preview](preview.png)
+
 
 Build with love by [Hafid Mukhlasin](http://hafidmukhlasin.com)
 
