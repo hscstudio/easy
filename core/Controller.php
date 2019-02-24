@@ -129,7 +129,7 @@ class Controller
       $username = Helper::safeText($_POST['username']);
       $password = $_POST['password'];
       $user = User::findByUsername($this->app->connection, $username);
-      if($user){
+      if($user->check()){
         $valid = $user->verifyPassword($password);
         if($valid){
           $user->set($user);

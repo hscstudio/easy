@@ -38,7 +38,15 @@ class User{
   }
 
   public function verifyPassword($password){
-    return password_verify($password, static::$user->password);
+    $verify = false;
+    if(static::$user){
+      $verify = password_verify($password, static::$user->password);
+    }
+    return $verify;
+  }
+
+  public function check(){
+    return !empty(static::$user);
   }
 
   public static function get(){
