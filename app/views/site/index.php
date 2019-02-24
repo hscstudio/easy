@@ -6,7 +6,7 @@
         Easy PHP Framework
       </h1>
       <p class="subtitle">
-        Another simple PHP framework for eduction purpose!
+        Another simple PHP framework for education purpose!
       </p>
     </div>
   </div>

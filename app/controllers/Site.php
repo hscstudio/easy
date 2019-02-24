@@ -1,16 +1,17 @@
 <?php
-namespace app\controllers;
+namespace App\Controllers;
 
-use core\Controller;
+use Core\Controller;
 
 class Site extends Controller
 {
-  public $auth = false;
+    public $auth = false;
 
-  public function actionIndex(){
-    $this->render([
-      'index'
-    ]);
-  }
+    public function actionIndex()
+    {
+        $this->render([
+            'index',
+        ]);
+    }
 
 }
