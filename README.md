@@ -82,4 +82,4 @@ password : 123456
 
 Build with love by [Hafid Mukhlasin](http://hafidmukhlasin.com)
 
-He is author of [Be Fullstack Developer](http://bukularavelvue.com) book (Best Seller!)
+He is author of [Be Fullstack Developer](http://buku-laravel-vue.com) book (Best Seller!)
