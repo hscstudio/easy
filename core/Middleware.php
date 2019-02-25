@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 
-class Middleware
+abstract class Middleware
 { 
     public $position = 'before'; // before or action 
     static $application;
@@ -25,8 +25,5 @@ class Middleware
         return static::$actions;
     }
     
-    public function run()
-    {
-        echo 'running middleware success';
-    }
+    abstract public function run();
 }

@@ -3,8 +3,9 @@ Another Simple PHP Framework For Education Purpose!
 
 ## requirement
 
+- Web Server Apache / Nginx
 - PHP 7
-- DBMS (MySQL, PostgreSQL, etc)
+- PDO (MySQL, PostgreSQL, etc)
 
 ## installation
 
@@ -16,7 +17,7 @@ Restore `easydb.sql` to Your database.
 
 Edit it in `app/config.php` file.
 
-### web server
+### apache web server
 
 Place .htaccess file in to public directory
 
@@ -30,7 +31,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 ```
 
-### nginx
+### nginx web server
 
 nginx configuration
 
@@ -49,6 +50,7 @@ location / {
 + app
   + controllers
     - Site.php  -> site controller
+    - Article.php  -> article controller
   + views
     + default
       - login.php -> default view login
@@ -56,14 +58,19 @@ location / {
       - main.php  -> layout file
     + site
       - index.php -> view file
+    + article
+      - index.php -> view file
+      - view.php -> view file
   - config.php  -> configuration file
 + core
   - Application.php -> class main application
+  - Authentication.php -> class auth middleware
   - Controller.php  -> base controller
   - Database.php  -> class database connection
   - error.php -> error page
-  - Helper.php  -> helpers
+  - Helper.php  -> class helpers
   - User.php  -> model user
+  - Middleware.php  -> abstract class middleware 
 + public
   + assets -> assets folder
     + js
