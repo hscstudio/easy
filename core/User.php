@@ -5,27 +5,7 @@ class User
 {
     private static $_instance = null;
     static $table = 'user';
-    static $user;
-
-    public static function getInstance()
-    {
-        if (self::$_instance === null) {
-            self::$_instance = new self;
-        }
-
-        return self::$_instance;
-    }
-
-    public static function findById($connection, $id)
-    {
-        $stmt = $connection->prepare("
-          SELECT * FROM " . self::$table . " WHERE id=:id AND status=1 LIMIT 1
-        ");
-        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
-        $stmt->execute();
-        static::$user = $stmt->fetchObject();
-        return static::getInstance();
-    }
+    static $user = null;
 
     public static function findByUsername($connection, $username)
     {
@@ -35,42 +15,55 @@ class User
         $stmt->bindParam(':username', $username, \PDO::PARAM_STR, 25);
         $stmt->execute();
         static::$user = $stmt->fetchObject();
-        return static::getInstance();
     }
 
-    public function verifyPassword($password)
+    public static function verifyPassword($password)
     {
         $verify = false;
-        if (static::$user) {
+        if (!empty(static::$user)) {
             $verify = password_verify($password, static::$user->password_hash);
         }
         return $verify;
     }
 
-    public function check()
+    public static function set()
     {
-        return !empty(static::$user);
+        $_SESSION['user'] = static::$user;
+    }
+
+    public static function login($connection, $username, $password)
+    {   
+        $object = new \stdClass();
+        $object->status = false;
+        static::findByUsername($connection, $username);
+        if(!empty(static::$user)){
+            $verify = static::verifyPassword($password);
+            if($verify){
+                static::set();
+                $object->status = true;
+                $object->message = 'login success';
+            }
+            else{
+                $object->message = 'password not match';
+            }
+        }
+        else{
+            $object->message = 'username not found';
+        }
+        return $object;
     }
 
     public static function get()
     {
-        if (!static::$user) {
-            if (!empty($_SESSION['user'])) {
-                static::$user = $_SESSION['user'];
-            }
-
+        $user = null;
+        if (!empty($_SESSION['user'])) {
+            $user = $_SESSION['user'];
         }
-        return static::$user;
+        return $user;
     }
 
-    public function set($user = null)
+    public static function logout()
     {
-        $_SESSION['user'] = $user;
-        static::$user = $user;
-    }
-
-    public static function hashPassword($password)
-    {
-        return password_hash($password, PASSWORD_DEFAULT);
+        unset($_SESSION['user']);
     }
 }

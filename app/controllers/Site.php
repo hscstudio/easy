@@ -5,8 +5,6 @@ use Core\Controller;
 
 class Site extends Controller
 {
-    public $auth = false;
-
     public function actionIndex()
     {
         $this->render([

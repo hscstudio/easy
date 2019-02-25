@@ -5,7 +5,15 @@ use Core\Controller;
 
 class Article extends Controller
 {
-    public $auth = true;
+    public function middleware()
+    {
+        return [
+            [
+                'class' => 'Core\Authentication',
+                'actions' => ['*'],
+            ]
+        ];
+    }
 
     public function actionIndex()
     {

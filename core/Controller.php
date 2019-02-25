@@ -21,6 +21,11 @@ class Controller
         $this->app = $app;
     }
 
+    public function middleware()
+    {
+        return [];
+    }
+
     public function getLayout()
     {
         $layoutFile = self::$config['dir_root'] . '/app/views/layouts/' . $this->layout . '.php';
@@ -50,30 +55,6 @@ class Controller
         }
     }
 
-    public function beforeAction()
-    {
-        if ($this->auth) {
-            if (!empty($this->getUser())) {
-
-            } else {
-                if (in_array($this->app->controller['action_id'], ['login', 'logout'])) {
-
-                } else {
-                    $_SESSION['redirect'] = 'ok';
-                    $this->app->controller['action_id'] = 'login';
-                    $this->redirect('site/login');
-                }
-
-                if (!empty($_SESSION['redirect'])) {
-                    unset($_SESSION['redirect']);
-                    $error_message = 'Too many redirect';
-                    require ERROR_PAGE;
-                    exit;
-                }
-            }
-        }
-    }
-
     public function redirect($target, $params = [])
     {
         $redirect = BASE_URL;
@@ -99,7 +80,6 @@ class Controller
 
     public function render($object)
     {
-        $this->beforeAction();
         if (is_array($object)) {
             $this->getView($object[0]);
             ob_start();
@@ -130,18 +110,12 @@ class Controller
         if (!empty($_POST)) {
             $username = Helper::safeText($_POST['username']);
             $password = $_POST['password'];
-            $user = User::findByUsername($this->app->connection, $username);
-            if ($user->check()) {
-                $valid = $user->verifyPassword($password);
-                if ($valid) {
-                    $user->set($user);
-                    $this->setMessage('success', 'Login successfull');
-                    $this->redirect('site/index');
-                } else {
-                    $this->setMessage('warning', 'Password not match');
-                }
+            $login = User::login($this->app->connection, $username, $password);
+            if ($login->status) {
+                $this->setMessage('success', $login->message);
+                $this->redirect('site/index');
             } else {
-                $this->setMessage('warning', 'Login fail!');
+                $this->setMessage('error', $login->message);
             }
         }
 
@@ -152,7 +126,7 @@ class Controller
 
     public function actionLogout()
     {
-        User::set();
+        User::logout();
         $this->setMessage('success', 'Logout success');
         $this->redirect('site/index');
     }
