@@ -6,7 +6,6 @@ use Core\User;
 
 class Controller
 {
-    static $config;
     public $app;
     public $auth = false;
     public $layout = "main";
@@ -15,9 +14,8 @@ class Controller
     public $viewFile;
     public $js_header;
 
-    public function __construct($config, $app)
+    public function __construct($app)
     {
-        self::$config = $config;
         $this->app = $app;
     }
 
@@ -28,7 +26,7 @@ class Controller
 
     public function getLayout()
     {
-        $layoutFile = self::$config['dir_root'] . '/app/views/layouts/' . $this->layout . '.php';
+        $layoutFile = APP_DIR . '/views/layouts/' . $this->layout . '.php';
         if (file_exists($layoutFile)) {
             $this->layoutFile = $layoutFile;
         } else {
@@ -40,11 +38,11 @@ class Controller
 
     public function getView($view)
     {
-        $viewFile = self::$config['dir_root'] . '/app/views/' . $this->app->controller['id'] . '/' . $view . '.php';
+        $viewFile = APP_DIR . '/views/' . $this->app->controller['id'] . '/' . $view . '.php';
         if (file_exists($viewFile)) {
             $this->viewFile = $viewFile;
         } else {
-            $viewFile = self::$config['dir_root'] . '/app/views/default/' . $view . '.php';
+            $viewFile = APP_DIR . '/views/default/' . $view . '.php';
             if (file_exists($viewFile)) {
                 $this->viewFile = $viewFile;
             } else {
@@ -99,7 +97,7 @@ class Controller
             if (is_string($object)) {
                 echo $object;
             } else {
-                require self::$config['dir_root'] . '/core/' . '404.php';
+                require APP_CORE . '/404.php';
                 exit;
             }
         }

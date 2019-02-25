@@ -21,7 +21,7 @@ class Application
     public function database()
     {
         $config = self::$config['db'];
-        $this->connection = Database::connection($config, self::$config['debug']);
+        $this->connection = Database::connection($config);
     }
 
     private function route()
@@ -34,9 +34,8 @@ class Application
 
         // clean path of URL
         $path = $this->url['path'];
-        $web_path = self::$config['web_path'];
-        if (!empty($web_path)) {
-            $path = str_replace('/' . $web_path . '/', '', $path);
+        if (!empty(WEB_PATH)) {
+            $path = str_replace('/' . WEB_PATH . '/', '', $path);
         } else {
             if ($path[0] == '/') {
                 $path = substr($path, 1, strlen($path));
@@ -96,7 +95,7 @@ class Application
         $this->controller['class'] = Helper::snakeToStudlyCaps($this->controller['id']);
         // load controllerClass
         $controller = 'app\\controllers\\' . $this->controller['class'];
-        $this->controller['object'] = new $controller(self::$config, $this);
+        $this->controller['object'] = new $controller($this);
         $this->actions = preg_grep('/^action/', get_class_methods($this->controller['object']));
         $this->getMiddleware();
     }
