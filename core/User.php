@@ -42,7 +42,7 @@ class User
     {
         $verify = false;
         if (static::$user) {
-            $verify = password_verify($password, static::$user->password);
+            $verify = password_verify($password, static::$user->password_hash);
         }
         return $verify;
     }
