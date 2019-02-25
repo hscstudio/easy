@@ -76,6 +76,13 @@ location / {
     + js
     + css
   - index.php -> mount point application
++ test -> folder automatic test with codeception
+- codeception.yml -> composer file, optional for testing
+- composer.json -> composer file, optional for testing
+- easydb.sql -> sample dump database
+- LICENSE
+- preview.png -> screenshoot application
+- README.md -> readme file
 
 ## another
 

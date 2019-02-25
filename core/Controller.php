@@ -115,7 +115,7 @@ class Controller
                 $this->setMessage('success', $login->message);
                 $this->redirect('site/index');
             } else {
-                $this->setMessage('error', $login->message);
+                $this->setMessage('danger', $login->message);
             }
         }
 
