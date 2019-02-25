@@ -52,7 +52,7 @@ INSERT INTO `article` (`id`, `title`, `body`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `username` varchar(25) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `password_hash` varchar(100) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -60,7 +60,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `status`) VALUES
+INSERT INTO `user` (`id`, `username`, `password_hash`, `status`) VALUES
 (1, 'admin', '$2y$10$/U5fl3BVUNyWFx7CZpg.2uoS818qgk/x8AhJNgFPKPBKkDEEWU3J6', 1);
 
 --
