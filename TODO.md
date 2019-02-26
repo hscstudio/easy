@@ -1,8 +1,8 @@
 # TODO
 
 ## Features
-- [] Optional routing (automatic or manual)
-- [] Console application is like artisan for migrate or generate code
+- [ ] Optional routing (automatic or manual)
+- [ ] Console application is like artisan for migrate or generate code
 - [] Static site generator
 - [] Simple active record or object relational model
 - [] Cache middleware
