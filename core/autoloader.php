@@ -10,13 +10,13 @@ spl_autoload_register(function ($className) {
         $fileName = strtolower($fileName);
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-    if (substr($fileName, 0, 5) == 'core/') {
-        $fileName = CORE_DIR . '/' . substr($fileName, 5);
+    if (substr($fileName, 0, 5) == 'core' . DIRECTORY_SEPARATOR) {
+        $fileName = CORE_DIR . DIRECTORY_SEPARATOR . substr($fileName, 5);
     }
-    else if (substr($fileName, 0, 4) == 'app/') {
-        $fileName = APP_DIR . '/' . substr($fileName, 4);  
+    else if (substr($fileName, 0, 4) == 'app' . DIRECTORY_SEPARATOR) {
+        $fileName = APP_DIR . DIRECTORY_SEPARATOR . substr($fileName, 4);  
     }
-    //echo $fileName . "<br>";
+    
     if (file_exists($fileName)) {
         require $fileName;
     } else {
