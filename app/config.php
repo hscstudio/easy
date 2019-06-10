@@ -13,9 +13,9 @@ $config['db'] = [
 
 /* START EDIT HERE 
 Generally, mount point of application in web root, but You can place Your application 
-in subdirectory, for example: http://localhost/your_project, so You can add `your_project`
+in subdirectory, for example: http://localhost/your_project/public, so You can add `your_project`
 in web_path config
-define('WEB_PATH', 'your_project');
+define('WEB_PATH', 'your_project/public');
 */
 define('WEB_PATH', '');
 
